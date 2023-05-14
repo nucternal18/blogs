@@ -1,0 +1,137 @@
+---
+title: 'Building a Dockerized Next.js Application with Prisma and MongoDB'
+date: '2023-05-13'
+excerpt: 'In this blog post, I will guide you through the process of building a Dockerized Next.js application with Prisma and MongoDB.'
+cover_image: '/images/profile.jpg'
+category: 'Web Development'
+author: 'A Oladipupo-Usoro'
+author_image: 'https://res.cloudinary.com/dus5nxe5w/image/upload/e_auto_color,q_80,r_30/v1684008562/Screenshot_2023-05-13_at_21.06.25_aerrka.webp'
+---
+
+In today's fast-paced development environment, containerization has become an essential tool for seamless deployment and scalability. Docker, coupled with popular technologies like Next.js, Prisma, and MongoDB, offers a powerful combination to build robust and efficient web applications. In this blog post, is a guide you through the process of creating a Dockerized Next.js application with Prisma and MongoDB, providing you with the necessary steps to get started.
+
+## Prerequisites
+
+Before we dive into the implementation, make sure you have the following prerequisites:
+
+- Basic knowledge of JavaScript, Node.js, and React.
+- Docker installed on your system.
+- A text editor of your choice.
+- Familiarity with Next.js, Prisma, and MongoDB will be helpful but not mandatory.
+
+Let's get started with the step-by-step process:
+
+**Step 1: Setting up a Next.js Application**.
+
+To begin, create a new Next.js project by running the following command in your terminal:
+
+```javascript
+npx create-next-app my-docker-app
+```
+
+**Step 2: Installing Prisma**.
+
+Next, navigate into the project directory and install Prisma using the following command:
+
+```javascript
+cd my-docker-app
+npm install prisma --save-dev
+```
+
+**Step 3: Configuring Prisma**.
+
+Now, initialize Prisma in your project by executing the following command:
+
+```javascript
+npx prisma init
+```
+
+This command will generate the necessary Prisma files, including the .env file for database connection configuration.
+
+**Step 4: Setting up MongoDB**.
+
+Before we proceed, make sure you have a MongoDB instance set up. You can either use a locally installed MongoDB server or a cloud-based MongoDB service like MongoDB Atlas. Update the .env file generated in the previous step with your MongoDB connection URL.
+
+**Step 5: Defining Prisma Models**.
+
+In the prisma directory, create a new file called schema.prisma and define your data models using Prisma's schema language. For example, let's create a simple User model:
+
+```prisma
+model User {
+  id    Int     @id @default(autoincrement())
+  name  String
+  email String  @unique
+}
+```
+
+**Step 6: Generating Prisma Client**.
+
+To generate the Prisma Client, run the following command in your terminal:
+
+```javascript
+npx prisma generate
+```
+
+This command will create the necessary Prisma Client files, which will be used to interact with the database.
+
+**Step 7: Building the Next.js Application**.
+
+Now that we have set up the database and Prisma, let's focus on building the Next.js application. You can start by creating pages, components, and any other required files as per your application's requirements.
+
+**Step 8: Dockerizing the Application**.
+
+To containerize our Next.js application, we need to create a Dockerfile. In the project root directory, create a new file named Dockerfile and add the following content:
+
+```dockerfile
+# Use the official Node.js image as the base
+FROM node:14-alpine
+
+# Set the working directory
+WORKDIR /app
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy the entire application to the working directory
+COPY . .
+
+# Build the Next.js application
+RUN npm run build
+
+# Expose the port that the application will run on
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]
+```
+
+**Step 9: Building the Docker Image**.
+
+In your terminal, navigate to the project directory and execute the following command to build the Docker image:
+
+```javascript
+docker build -t my-dockerized-app .
+```
+
+This command will create a Docker image named "my-dockerized-app" based on the Dockerfile configuration.
+
+**Step 10: Running the Docker Container**.
+
+Once the Docker image is built, you can run the Docker container using the following command:
+
+```javascript
+docker run -p 3000:3000 my-dockerized-app
+```
+
+This command maps port 3000 from the container to port 3000 on your local machine. You should now be able to access your Next.js application by visiting <http://localhost:3000> in your browser.
+
+**Conclusion**:
+
+Congratulations! You have successfully created a Dockerized Next.js application with Prisma and MongoDB. This approach allows you to package your application along with its dependencies, making it easy to deploy and scale across different environments. Docker provides a consistent and reliable environment for your application to run, ensuring seamless deployment and improved productivity.
+
+Remember, this guide provides a starting point, and you can further customize and enhance your application based on your specific requirements. Feel free to explore more features and capabilities of Next.js, Prisma, and MongoDB to build powerful and scalable applications.
+
+Happy coding!
