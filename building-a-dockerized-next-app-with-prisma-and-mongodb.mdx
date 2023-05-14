@@ -57,7 +57,7 @@ Before we proceed, make sure you have a MongoDB instance set up. You can either 
 
 In the prisma directory, create a new file called schema.prisma and define your data models using Prisma's schema language. For example, let's create a simple User model:
 
-```prisma
+```typescript
 model User {
   id    Int     @id @default(autoincrement())
   name  String
