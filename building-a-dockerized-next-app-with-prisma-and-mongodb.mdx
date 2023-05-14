@@ -114,20 +114,20 @@ CMD ["npm", "start"]
 In your terminal, navigate to the project directory and execute the following command to build the Docker image:
 
 ```javascript
-docker build -t my-dockerized-app .
+docker build -t my-docker-app .
 ```
 
-This command will create a Docker image named "my-dockerized-app" based on the Dockerfile configuration.
+This command will create a Docker image named "my-docker-app" based on the Dockerfile configuration.
 
 **Step 10: Running the Docker Container**.
 
 Once the Docker image is built, you can run the Docker container using the following command:
 
 ```javascript
-docker run -p 3000:3000 my-dockerized-app
+docker run -p 3000:3000 my-docker-app
 ```
 
-This command maps port 3000 from the container to port 3000 on your local machine. You should now be able to access your Next.js application by visiting <http://localhost:3000> in your browser.
+This command maps port 3000 from the container to port 3000 on your local machine. You should now be able to access your Next.js application by visiting [http://localhost:3000](http://localhost:3000) in your browser.
 
 **Conclusion**:
 
