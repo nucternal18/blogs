@@ -55,11 +55,25 @@ Before we proceed, make sure you have a MongoDB instance set up. You can either 
 
 **Step 5: Defining Prisma Models**.
 
-In the prisma directory, create a new file called schema.prisma and define your data models using Prisma's schema language. For example, let's create a simple User model:
+In the prisma directory, there should be a new file called schema.prisma, if not create a new file and define your data models using Prisma's schema language. For example, let's create a simple User model:
 
 ```typescript
 model User {
-  id    Int     @id @default(autoincrement())
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
+  name  String
+  email String  @unique
+}
+```
+update the provider under the data source to mongodb.
+
+```typescript
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_DATABASE_URL")
+}
+
+model User {
+  id    String   @id @default(auto()) @map("_id") @db.ObjectId
   name  String
   email String  @unique
 }
@@ -85,7 +99,7 @@ To containerize our Next.js application, we need to create a Dockerfile. In the 
 
 ```javascript
 # Use the official Node.js image as the base
-FROM node:14-alpine
+FROM node:latest
 
 # Set the working directory
 WORKDIR /app
